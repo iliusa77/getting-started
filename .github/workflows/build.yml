@@ -20,6 +20,8 @@ jobs:
         tags: iliusa77/docker-getting-started:latest
     - name: Connect to Vagrant and execute uname
       run: |
-         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 -i ${{ secrets.SSH_PRIVATE_KEY }} "uname"
-         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 -i ${{ secrets.SSH_PRIVATE_KEY }} "uptime"
+         echo ${{ secrets.SSH_PRIVATE_KEY }} > key
+         chmod 400 key 
+         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 -i key "uname"
+         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 -i key "uptime"
       shell: bash
