@@ -18,10 +18,12 @@ jobs:
       with:
         push: true
         tags: iliusa77/docker-getting-started:latest
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Connect to Vagrant and execute uname
       run: |
-         echo ${{ secrets.SSH_PRIVATE_KEY }} > key
-         chmod 400 key 
-         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 -i key "uname"
-         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 -i key "uptime"
+         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 "uname"
+         ssh vagrant@2.tcp.eu.ngrok.io -p 18472 "uptime"
       shell: bash
